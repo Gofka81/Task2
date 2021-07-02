@@ -1,17 +1,38 @@
 package com.epam.rd.java.basic.practice2;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 
 public class ArrayImpl implements Array {
 
+    private Object[] arrayData;
+    private int size;
+
+    public ArrayImpl(int initialCapacity){
+        if (initialCapacity > 0) {
+            this.arrayData = new Object[initialCapacity];
+        }
+        else {
+            throw new IllegalArgumentException();
+        }
+        size =0;
+    }
+    public ArrayImpl(){
+        arrayData = new Object[10];
+        size =0;
+    }
+
 	@Override
     public void clear() {
-        
+        for (int to = size, i = size = 0; i < to; i++) {
+            arrayData[i] = null;
+        }
     }
 
 	@Override
     public int size() {
-        return 0;
+        return size;
     }
 	
 	@Override
@@ -21,50 +42,122 @@ public class ArrayImpl implements Array {
 	
 	private class IteratorImpl implements Iterator<Object> {
 
+        private int indexNext;
+        private int lastIndex =-1;
+
         @Override
         public boolean hasNext() {
-            return false;
+            return indexNext!=size;
         }
 
         @Override
         public Object next() {
-            return null;
+            if(indexNext>=size){
+                throw new NoSuchElementException();
+            }
+            lastIndex = indexNext;
+            indexNext++;
+            return arrayData[indexNext];
         }
 
+        @Override
+        public  void remove() {
+            ArrayImpl.this.remove(lastIndex);
+            size--;
+            indexNext = lastIndex;
+            lastIndex=-1;
+        }
     }
 	
 	@Override
     public void add(Object element) {
-        
+        try{
+            arrayData[size] = element;
+            size++;
+        }
+        catch(ArrayIndexOutOfBoundsException exception){
+            grow(5+size);
+            arrayData[size] = element;
+            size++;
+        }
     }
 
 	@Override
-    public void set(int index, Object element) {
-        
+    public void set(int index, Object element){
+        try{
+            arrayData[index] = element;
+        }
+        catch (NoSuchElementException exception){
+            System.out.println("NoSuchElementException");
+        }
     }
 
 	@Override
     public Object get(int index) {
-        return null;
+        try{
+            return arrayData[index];
+        }
+        catch (NoSuchElementException exception){
+            System.out.println("NoSuchElementException");
+            return null;
+        }
     }
 
 	@Override
     public int indexOf(Object element) {
-        return 0;
+        int place =0;
+        for(Object st: arrayData){
+            if(st.equals(element)){
+                return place;
+            }
+            else {
+                place++;
+            }
+        }
+        return -1;
     }
 
 	@Override
     public void remove(int index) {
-        
+        Object[]temp = arrayData;
+        if (size - 1 - index >= 0) {
+            System.arraycopy(temp, index + 1, temp, index, size - 1 - index);
+        }
+        temp[size] = null;
+        size--;
     }
 
     @Override
     public String toString() {
-        return null;
+        StringBuilder string = new StringBuilder();
+        string.append("[");
+        for(int i=0; i<size; i++){
+            string.append(arrayData[i]);
+            if(i!=size-1) {
+                string.append(", ");
+            }
+        }
+        string.append("]");
+        return string.toString();
+    }
+
+    public void grow(int newCapacity){
+        Object[] oldData = arrayData;
+        Object[] newData = new Object[newCapacity];
+        System.arraycopy(oldData,0,newData,0,size);
+        arrayData = newData;
     }
 
     public static void main(String[] args) {
-
+        ArrayImpl array = new ArrayImpl(10);
+        for(String a:args) {
+            array.add(a);
+        }
+        System.out.print(array.toString());
+        array.remove(2);
+        array.remove(1);
+        array.remove(0);
+        array.remove(4);
+        System.out.print(array.toString());
     }
-
 }
