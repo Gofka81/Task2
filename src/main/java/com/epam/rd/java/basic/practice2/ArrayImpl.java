@@ -119,12 +119,16 @@ public class ArrayImpl implements Array {
 
 	@Override
     public void remove(int index) {
-        Object[]temp = arrayData;
-        if (size - 1 - index >= 0) {
-            System.arraycopy(temp, index + 1, temp, index, size - 1 - index);
+        try{
+            Object[]temp = arrayData;
+            if (size - 1 - index >= 0) {
+                System.arraycopy(temp, index + 1, temp, index, size - 1 - index);
+            }
+            temp[size] = null;
+            size--;}
+        catch (ArrayIndexOutOfBoundsException exception){
+            System.out.println("ArrayIndexOutOfBoundsException");
         }
-        temp[size] = null;
-        size--;
     }
 
     @Override
