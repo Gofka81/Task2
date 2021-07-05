@@ -1,5 +1,6 @@
 package com.epam.rd.java.basic.practice2;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -116,17 +117,13 @@ public class ArrayImpl implements Array {
         }
         return -1;
     }
-
 	@Override
     public void remove(int index) {
         try{
             Object[]temp = arrayData;
-            if (size - 1 - index >= 0) {
-                System.arraycopy(temp, index + 1, temp, index, size - 1 - index);
-            }
             temp[size] = null;
             size--;
-            reduction();
+
         }
         catch (ArrayIndexOutOfBoundsException exception){
             System.out.println("ArrayIndexOutOfBoundsException");
@@ -150,12 +147,6 @@ public class ArrayImpl implements Array {
     public void grow(int newCapacity){
         Object[] oldData = arrayData;
         Object[] newData = new Object[newCapacity];
-        System.arraycopy(oldData,0,newData,0,size);
-        arrayData = newData;
-    }
-    public  void reduction(){
-        Object[] oldData = arrayData;
-        Object[] newData = new Object[arrayData.length-1];
         System.arraycopy(oldData,0,newData,0,size);
         arrayData = newData;
     }
