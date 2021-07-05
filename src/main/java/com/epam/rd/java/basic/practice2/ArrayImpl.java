@@ -125,7 +125,9 @@ public class ArrayImpl implements Array {
                 System.arraycopy(temp, index + 1, temp, index, size - 1 - index);
             }
             temp[size] = null;
-            size--;}
+            size--;
+            reduction();
+        }
         catch (ArrayIndexOutOfBoundsException exception){
             System.out.println("ArrayIndexOutOfBoundsException");
         }
@@ -151,6 +153,12 @@ public class ArrayImpl implements Array {
         System.arraycopy(oldData,0,newData,0,size);
         arrayData = newData;
     }
+    public  void reduction(){
+        Object[] oldData = arrayData;
+        Object[] newData = new Object[arrayData.length-1];
+        System.arraycopy(oldData,0,newData,0,size);
+        arrayData = newData;
+    }
 
     public static void main(String[] args) {
         ArrayImpl array = new ArrayImpl(10);
@@ -160,8 +168,10 @@ public class ArrayImpl implements Array {
         System.out.print(array.toString());
         array.remove(2);
         array.remove(1);
+        System.out.println(array.size());
         array.remove(0);
         array.remove(4);
-        System.out.print(array.toString());
+        System.out.println(array.size());
+        System.out.println(array.toString());
     }
 }
