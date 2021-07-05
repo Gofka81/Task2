@@ -107,15 +107,12 @@ public class ArrayImpl implements Array {
     public int indexOf(Object element) {
         int place =0;
         for(Object st: arrayData){
-            try {
-                if (st.equals(element)) {
-                    return place;
-                } else {
-                    place++;
-                }
-            }catch (NullPointerException exception){
-                return -1;
+            if (st.equals(element)) {
+                return place;
+            } else {
+                place++;
             }
+
         }
         return -1;
     }
@@ -123,7 +120,9 @@ public class ArrayImpl implements Array {
     public void remove(int index) {
         try{
             Object[]temp = arrayData;
-            temp[size] = null;
+            for(int i= index;i<size-1;i++){
+                temp[i] = temp[i+1];
+            }
             size--;
 
         }
@@ -163,7 +162,6 @@ public class ArrayImpl implements Array {
         array.remove(1);
         System.out.println(array.size());
         array.remove(0);
-        array.remove(4);
         System.out.println(array.size());
         System.out.println(array.toString());
     }
