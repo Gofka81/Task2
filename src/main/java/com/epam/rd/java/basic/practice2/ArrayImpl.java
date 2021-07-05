@@ -120,7 +120,7 @@ public class ArrayImpl implements Array {
     public void remove(int index) {
         try{
             Object[]temp = arrayData;
-            for(int i= index;i<size-1;i++){
+            for(int i= index-1;i<size-1;i++){
                 temp[i] = temp[i+1];
             }
             size--;
