@@ -53,7 +53,7 @@ public class ArrayImpl implements Array {
         @Override
         public Object next() {
             if(indexNext>=size){
-                throw new ArrayIndexOutOfBoundsException();
+                throw new NoSuchElementException();
             }
             lastIndex = indexNext;
             indexNext++;
@@ -98,7 +98,6 @@ public class ArrayImpl implements Array {
             return arrayData[index];
         }
         catch (NoSuchElementException exception){
-            System.out.println("NoSuchElementException");
             return null;
         }
     }
