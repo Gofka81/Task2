@@ -53,7 +53,7 @@ public class ArrayImpl implements Array {
         @Override
         public Object next() {
             if(indexNext>=size){
-                throw new NoSuchElementException();
+                throw new ArrayIndexOutOfBoundsException();
             }
             lastIndex = indexNext;
             indexNext++;
@@ -107,12 +107,18 @@ public class ArrayImpl implements Array {
     public int indexOf(Object element) {
         int place =0;
         for(Object st: arrayData){
-            if (st.equals(element)) {
-                return place;
-            } else {
-                place++;
-            }
-
+           try {
+               if (st.equals(element)) {
+                   return place;
+               } else {
+                   place++;
+               }
+           }
+           catch (NullPointerException exception){
+               if(st == element){
+                   return place;
+               }
+           }
         }
         return -1;
     }
@@ -162,5 +168,6 @@ public class ArrayImpl implements Array {
         array.remove(0);
         System.out.println(array.size());
         System.out.println(array.toString());
+        System.out.println(array.indexOf(null));
     }
 }
