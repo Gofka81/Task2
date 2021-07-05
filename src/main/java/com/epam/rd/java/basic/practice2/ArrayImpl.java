@@ -53,7 +53,7 @@ public class ArrayImpl implements Array {
         @Override
         public Object next() {
             if(indexNext>=size){
-                throw new ArrayIndexOutOfBoundsException();
+                throw new NoSuchElementException();
             }
             lastIndex = indexNext;
             indexNext++;
@@ -120,9 +120,7 @@ public class ArrayImpl implements Array {
     public void remove(int index) {
         try{
             Object[]temp = arrayData;
-            for(int i= index-1;i<size-1;i++){
-                temp[i] = temp[i+1];
-            }
+            if (size - 1 - index >= 0) System.arraycopy(temp, index + 1, temp, index, size - 1 - index);
             size--;
 
         }
