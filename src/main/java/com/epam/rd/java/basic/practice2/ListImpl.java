@@ -70,11 +70,11 @@ public class ListImpl implements List {
         size++;
         if(head == null){
             head = new Node(element,null);
-            head = tail;
+            tail = head;
             return;
         }
         Node newNode = new Node(element, head);
-        newNode = head;
+        head = newNode;
     }
 
     @Override
@@ -82,7 +82,7 @@ public class ListImpl implements List {
         size++;
         if(head == null){
             head = new Node(element,null);
-            head = tail;
+            tail = head;
             return;
         }
         Node newNode = new Node(element, null);
@@ -120,7 +120,7 @@ public class ListImpl implements List {
     public Object search(Object element) {
         Node temp = head;
         while (temp != null){
-            if(temp.equals(element)){
+            if(temp.val.equals(element)){
                 return element;
             }
             temp = temp.next;
@@ -133,7 +133,7 @@ public class ListImpl implements List {
         Node temp = head;
         Node safeTemp = null;
         while (temp != null){
-            if (temp.equals(element)){
+            if (temp.val.equals(element)){
                 if(safeTemp != null){
                     safeTemp.next = temp.next;
                 }
@@ -166,6 +166,17 @@ public class ListImpl implements List {
     }
 
     public static void main(String[] args) {
-
+        ListImpl list = new ListImpl();
+        list.addFirst(args[0]);
+        list.addFirst(args[1]);
+        list.addLast(args[2]);
+        list.remove("Dat");
+        System.out.println(list.toString());
+        System.out.println(list.size());
+        list.removeFirst();
+        list.addLast(args[3]);
+        System.out.println(list.toString());
+        list.clear();
+        System.out.println(list.toString());
     }
 }
