@@ -57,7 +57,7 @@ public class ArrayImpl implements Array {
             }
             lastIndex = indexNext;
             indexNext++;
-            return arrayData[indexNext];
+            return arrayData[lastIndex];
         }
 
         @Override
