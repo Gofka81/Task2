@@ -1,7 +1,6 @@
 package com.epam.rd.java.basic.practice2;
 
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 
 public class ListImpl implements List {
 
@@ -99,12 +98,21 @@ public class ListImpl implements List {
 
     @Override
     public Object getFirst() {
-        return head.val;
+        try {
+            return head.val;
+        }catch (NullPointerException exeption){
+            return null;
+        }
+
     }
 
     @Override
     public Object getLast() {
-        return tail.val;
+        try {
+            return tail.val;
+        }catch (NullPointerException exeption){
+            return null;
+        }
     }
 
     @Override
@@ -129,7 +137,7 @@ public class ListImpl implements List {
             Node temp = head;
             Node safeTemp = null;
             while (temp != null){
-                if (temp.val.equals(element)){
+                if (element.equals(temp.val)){
                     if(safeTemp != null){
                         safeTemp.next = temp.next;
                     }
@@ -144,6 +152,22 @@ public class ListImpl implements List {
             }
             return false;
         }catch(NullPointerException exception){
+            Node temp = head;
+            Node safeTemp = null;
+            while (temp != null){
+                if(element == temp.val){
+                    if(safeTemp != null){
+                        safeTemp.next = temp.next;
+                    }
+                    else{
+                        head = head.next;
+                    }
+                    size --;
+                    return true;
+                }
+                safeTemp = temp;
+                temp = temp.next;
+            }
             return false;
         }
     }
@@ -169,6 +193,7 @@ public class ListImpl implements List {
         list.addFirst(args[0]);
         list.addFirst(args[1]);
         list.addLast(args[2]);
+        System.out.println(list.toString());
         list.remove(null);
         System.out.println(list.toString());
         System.out.println(list.size());
