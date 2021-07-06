@@ -32,27 +32,38 @@ public class ListImpl implements List {
     }
 
     public Iterator<Object> iterator() {
-        return new IteratorImpl();
+        return new IteratorImpl(head);
     }
 
     private class IteratorImpl implements Iterator<Object> {
 
+        IteratorImpl(Node head){
+            this.pointer = head;
+        }
+
         private Node pointer;
+        private int index;
 
         @Override
         public boolean hasNext() {
-            return pointer != null;
+            return pointer.next != null;
         }
 
         @Override
         public Object next() {
-                if(hasNext()){
-                pointer = pointer.next;
-                return pointer.val;
-                }
-                else{
+            try {
+                if(index>=size){
                     throw new NoSuchElementException();
                 }
+                if(index>0) {
+                    pointer = pointer.next;
+                }
+                index++;
+                return pointer.val;
+            }
+            catch (NullPointerException exception){
+                return null;
+            }
         }
 
     }
@@ -189,18 +200,19 @@ public class ListImpl implements List {
         list.addFirst(args[0]);
         list.addLast(args[1]);
         list.addLast(args[2]);
-        System.out.println(list.toString());
-        System.out.println(list.remove(null));
-        System.out.println(list.toString());
         list.addLast(null);
         System.out.println(list.toString());
         list.removeLast();
         System.out.println(list.toString());
-        System.out.println(list.size());
-        list.removeFirst();
         list.addLast(args[3]);
+
+        for(Object o: list){
+            System.out.print(o);
+        }
         System.out.println(list.toString());
         list.clear();
         System.out.println(list.toString());
+
+
     }
 }

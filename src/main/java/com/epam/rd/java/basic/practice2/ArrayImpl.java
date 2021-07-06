@@ -168,5 +168,9 @@ public class ArrayImpl implements Array {
         System.out.println(array.size());
         System.out.println(array.toString());
         System.out.println(array.indexOf(null));
+
+        for(Object o: array){
+            System.out.println(o);
+        }
     }
 }
