@@ -1,6 +1,7 @@
 package com.epam.rd.java.basic.practice2;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class ListImpl implements List {
 
@@ -50,7 +51,7 @@ public class ListImpl implements List {
                 return pointer.val;
                 }
                 else{
-                    throw new NullPointerException();
+                    throw new NoSuchElementException();
                 }
         }
 
@@ -137,7 +138,7 @@ public class ListImpl implements List {
         Node safeTemp = null;
         try{
             while (temp != null){
-                if (element.equals(temp.val)){
+                if (temp.val.equals(element)){
                     if(safeTemp != null){
                         safeTemp.next = temp.next;
                     }
@@ -186,10 +187,10 @@ public class ListImpl implements List {
         ListImpl list = new ListImpl();
         System.out.println();
         list.addFirst(args[0]);
-        list.addFirst(args[1]);
+        list.addLast(args[1]);
         list.addLast(args[2]);
         System.out.println(list.toString());
-        list.remove(null);
+        System.out.println(list.remove(null));
         System.out.println(list.toString());
         list.addLast(null);
         System.out.println(list.toString());
