@@ -45,13 +45,13 @@ public class ListImpl implements List {
 
         @Override
         public Object next() {
-            try {
+                if(hasNext()){
                 pointer = pointer.next;
                 return pointer.val;
-            }
-            catch (NullPointerException exception){
-                return null;
-            }
+                }
+                else{
+                    throw new NullPointerException();
+                }
         }
 
     }
@@ -133,9 +133,9 @@ public class ListImpl implements List {
 
     @Override
     public boolean remove(Object element) {
+        Node temp = head;
+        Node safeTemp = null;
         try{
-            Node temp = head;
-            Node safeTemp = null;
             while (temp != null){
                 if (element.equals(temp.val)){
                     if(safeTemp != null){
@@ -152,21 +152,15 @@ public class ListImpl implements List {
             }
             return false;
         }catch(NullPointerException exception){
-            Node temp = head;
-            Node safeTemp = null;
-            while (temp != null){
-                if(element == temp.val){
-                    if(safeTemp != null){
-                        safeTemp.next = temp.next;
-                    }
-                    else{
-                        head = head.next;
-                    }
-                    size --;
-                    return true;
+            if(element == temp.val){
+                if(safeTemp != null){
+                    safeTemp.next = temp.next;
                 }
-                safeTemp = temp;
-                temp = temp.next;
+                else{
+                    head = head.next;
+                }
+                size --;
+                return true;
             }
             return false;
         }
@@ -190,11 +184,16 @@ public class ListImpl implements List {
 
     public static void main(String[] args) {
         ListImpl list = new ListImpl();
+        System.out.println();
         list.addFirst(args[0]);
         list.addFirst(args[1]);
         list.addLast(args[2]);
         System.out.println(list.toString());
         list.remove(null);
+        System.out.println(list.toString());
+        list.addLast(null);
+        System.out.println(list.toString());
+        list.removeLast();
         System.out.println(list.toString());
         System.out.println(list.size());
         list.removeFirst();
