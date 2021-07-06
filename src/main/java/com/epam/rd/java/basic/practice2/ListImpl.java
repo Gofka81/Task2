@@ -13,11 +13,6 @@ public class ListImpl implements List {
             this.val = val;
             this.next = next;
         }
-
-        public Node(){
-            next = null;
-            val = null;
-        }
     }
 
     private Node head;
@@ -46,10 +41,7 @@ public class ListImpl implements List {
 
         @Override
         public boolean hasNext() {
-            if(pointer == null){
-                return false;
-            }
-            return true;
+            return pointer != null;
         }
 
         @Override
@@ -73,8 +65,7 @@ public class ListImpl implements List {
             tail = head;
             return;
         }
-        Node newNode = new Node(element, head);
-        head = newNode;
+        head = new Node(element, head);
     }
 
     @Override
@@ -118,35 +109,43 @@ public class ListImpl implements List {
 
     @Override
     public Object search(Object element) {
-        Node temp = head;
-        while (temp != null){
-            if(temp.val.equals(element)){
-                return element;
+        try{
+            Node temp = head;
+            while (temp != null){
+                if(temp.val.equals(element)){
+                    return element;
+                }
+                temp = temp.next;
             }
-            temp = temp.next;
+            return null;
+        }catch(NullPointerException exception){
+            return null;
         }
-        return null;
     }
 
     @Override
     public boolean remove(Object element) {
-        Node temp = head;
-        Node safeTemp = null;
-        while (temp != null){
-            if (temp.val.equals(element)){
-                if(safeTemp != null){
-                    safeTemp.next = temp.next;
+        try{
+            Node temp = head;
+            Node safeTemp = null;
+            while (temp != null){
+                if (temp.val.equals(element)){
+                    if(safeTemp != null){
+                        safeTemp.next = temp.next;
+                    }
+                    else{
+                        head = head.next;
+                    }
+                    size --;
+                    return true;
                 }
-                else{
-                    temp = temp.next;
-                }
-                size --;
-                return true;
+                safeTemp = temp;
+                temp= temp.next;
             }
-            safeTemp = temp;
-            temp= temp.next;
+            return false;
+        }catch(NullPointerException exception){
+            return false;
         }
-        return false;
     }
 
     @Override
@@ -170,7 +169,7 @@ public class ListImpl implements List {
         list.addFirst(args[0]);
         list.addFirst(args[1]);
         list.addLast(args[2]);
-        list.remove("Dat");
+        list.remove(null);
         System.out.println(list.toString());
         System.out.println(list.size());
         list.removeFirst();
