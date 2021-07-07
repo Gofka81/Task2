@@ -6,12 +6,16 @@ import java.util.NoSuchElementException;
 public class ListImpl implements List {
 
     public static class Node{
-        public Node next;
-        public Object val;
+        private Node next;
+        private Object val;
 
         public Node(Object val, Node next){
             this.val = val;
             this.next = next;
+        }
+
+        public Node getNext() {
+            return next;
         }
     }
 
@@ -22,6 +26,7 @@ public class ListImpl implements List {
     public Node getHead() {
         return head;
     }
+
 
     @Override
     public void clear() {

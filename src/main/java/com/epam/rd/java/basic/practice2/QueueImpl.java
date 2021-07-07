@@ -1,6 +1,5 @@
 package com.epam.rd.java.basic.practice2;
 
-import org.w3c.dom.Node;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -39,7 +38,7 @@ public class QueueImpl implements Queue {
 
         @Override
         public boolean hasNext() {
-            return pointer.next != null;
+            return pointer.getNext() != null;
         }
 
         @Override
@@ -49,10 +48,10 @@ public class QueueImpl implements Queue {
                     throw new NoSuchElementException();
                 }
                 if(index>0) {
-                    pointer = pointer.next;
+                    pointer = pointer.getNext();
                 }
                 index++;
-                return pointer.val;
+                return pointer.getNext();
             }
             catch (NullPointerException exception){
                 return null;

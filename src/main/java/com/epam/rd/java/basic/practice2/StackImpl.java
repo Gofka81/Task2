@@ -1,6 +1,7 @@
 package com.epam.rd.java.basic.practice2;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class StackImpl implements Stack {
 
@@ -27,7 +28,6 @@ public class StackImpl implements Stack {
     private class IteratorImpl implements Iterator<Object> {
 
         private  int index = size()-1;
-        private int prevIndex = -1;
 
         @Override
         public boolean hasNext() {
@@ -36,9 +36,15 @@ public class StackImpl implements Stack {
 
         @Override
         public Object next() {
-            prevIndex = index;
-            index--;
-            return array.get(prevIndex);
+            try {
+                int prevIndex = index;
+                index--;
+                return array.get(prevIndex);
+            }
+            catch (NoSuchElementException exception) {
+                exception.printStackTrace();
+            }
+            return  null;
         }
 
     }
