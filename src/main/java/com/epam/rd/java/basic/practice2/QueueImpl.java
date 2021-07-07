@@ -1,6 +1,9 @@
 package com.epam.rd.java.basic.practice2;
 
+import org.w3c.dom.Node;
+
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class QueueImpl implements Queue {
 
@@ -22,19 +25,38 @@ public class QueueImpl implements Queue {
     }
 
     public Iterator<Object> iterator() {
-        return new IteratorImpl();
+        return new IteratorImpl(list);
     }
 
     private class IteratorImpl implements Iterator<Object> {
 
+        private ListImpl.Node pointer;
+        private int index;
+
+        IteratorImpl(ListImpl list){
+            pointer = list.getHead();
+        }
+
         @Override
         public boolean hasNext() {
-            return list.iterator().hasNext();
+            return pointer.next != null;
         }
 
         @Override
         public Object next() {
-            return list.iterator().next();
+            try {
+                if(index>=size()){
+                    throw new NoSuchElementException();
+                }
+                if(index>0) {
+                    pointer = pointer.next;
+                }
+                index++;
+                return pointer.val;
+            }
+            catch (NullPointerException exception){
+                return null;
+            }
         }
 
     }

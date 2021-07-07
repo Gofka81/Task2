@@ -6,8 +6,8 @@ import java.util.NoSuchElementException;
 public class ListImpl implements List {
 
     public static class Node{
-        private Node next;
-        private Object val;
+        public Node next;
+        public Object val;
 
         public Node(Object val, Node next){
             this.val = val;
@@ -18,6 +18,10 @@ public class ListImpl implements List {
     private Node head;
     private Node tail;
     private int size;
+
+    public Node getHead() {
+        return head;
+    }
 
     @Override
     public void clear() {

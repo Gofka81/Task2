@@ -33,8 +33,13 @@ public class ArrayImpl implements Array {
 
 	@Override
     public void clear() {
-        for (int to = size, i = size = 0; i < to; i++) {
-            arrayData[i] = null;
+        try {
+            for (int to = size, i = size = 0; i < to; i++) {
+                arrayData[i] = null;
+            }
+        }
+        catch (ArrayIndexOutOfBoundsException exception) {
+            exception.printStackTrace();
         }
     }
 

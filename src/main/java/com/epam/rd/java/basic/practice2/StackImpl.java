@@ -26,14 +26,19 @@ public class StackImpl implements Stack {
 
     private class IteratorImpl implements Iterator<Object> {
 
+        private  int index = size()-1;
+        private int prevIndex = -1;
+
         @Override
         public boolean hasNext() {
-            return array.iterator().hasNext();
+            return index>=0;
         }
 
         @Override
         public Object next() {
-            return array.iterator().next();
+            prevIndex = index;
+            index--;
+            return array.get(prevIndex);
         }
 
     }
@@ -46,7 +51,7 @@ public class StackImpl implements Stack {
     @Override
     public Object pop() {
         try {
-            Object temp[] = array.getArrayData();
+            Object[] temp = array.getArrayData();
             Object o = temp[array.size() - 1];
             System.arraycopy(temp, array.size(), temp, array.size() - 2, array.size() - 1);
             array.setSize(size() - 1);
@@ -75,6 +80,7 @@ public class StackImpl implements Stack {
         System.out.println(stack.toString());
         stack.pop();
         System.out.println(stack.toString());
+        stack.clear();
     }
 
 }
