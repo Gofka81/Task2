@@ -6,8 +6,8 @@ import java.util.NoSuchElementException;
 
 public class ArrayImpl implements Array {
 
-    private Object[] arrayData;
-    private int size;
+    public Object[] arrayData;
+    public int size;
 
     public ArrayImpl(int initialCapacity){
         if (initialCapacity > 0) {

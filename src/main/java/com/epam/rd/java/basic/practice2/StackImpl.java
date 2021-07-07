@@ -4,14 +4,20 @@ import java.util.Iterator;
 
 public class StackImpl implements Stack {
 
+   ArrayImpl array;
+
+    public StackImpl(){
+        array = new ArrayImpl();
+    }
+
     @Override
     public void clear() {
-        
+        array.clear();
     }
 
     @Override
     public int size() {
-        return 0;
+        return array.size();
     }
 
     public Iterator<Object> iterator() {
@@ -22,38 +28,47 @@ public class StackImpl implements Stack {
 
         @Override
         public boolean hasNext() {
-            return false;
+            return array.iterator().hasNext();
         }
 
         @Override
         public Object next() {
-            return null;
+            return array.iterator().next();
         }
 
     }
 
     @Override
     public void push(Object element) {
-        
+        array.add(element);
     }
 
     @Override
     public Object pop() {
-        return null;
+        Object o = array.arrayData[array.size-1];
+        Object[]temp = array.arrayData;
+        System.arraycopy(temp, array.size, temp, array.size-2, array.size-1);
+        array.size--;
+        return o;
     }
 
     @Override
     public Object top() {
-        return null;
+        return array.arrayData[0];
     }
 
     @Override
     public String toString() {
-        return null;
+
+        return array.toString();
     }
 
     public static void main(String[] args) {
-
+        StackImpl stack = new StackImpl();
+        for(String arg: args){
+            stack.push(arg);
+        }
+        System.out.println(stack.toString());
     }
 
 }
