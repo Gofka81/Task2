@@ -6,11 +6,10 @@ public class QueueImpl implements Queue {
 
     ListImpl list;
 
-    public QueueImpl(){}
-
-    public QueueImpl(ListImpl list) {
-        this.list = list;
+    public QueueImpl(){
+        list = new ListImpl();
     }
+
 
     @Override
     public void clear() {
@@ -64,8 +63,7 @@ public class QueueImpl implements Queue {
     }
 
     public static void main(String[] args) {
-        ListImpl list = new ListImpl();
-        QueueImpl queue = new QueueImpl(list);
+        QueueImpl queue = new QueueImpl();
         for(String arg: args){
             queue.enqueue(arg);
         }
