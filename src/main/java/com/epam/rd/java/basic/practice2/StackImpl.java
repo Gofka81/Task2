@@ -45,16 +45,20 @@ public class StackImpl implements Stack {
 
     @Override
     public Object pop() {
-        Object o = array.arrayData[array.size-1];
-        Object[]temp = array.arrayData;
-        System.arraycopy(temp, array.size, temp, array.size-2, array.size-1);
-        array.size--;
-        return o;
+        try {
+            Object temp[] = array.getArrayData();
+            Object o = temp[array.size() - 1];
+            System.arraycopy(temp, array.size(), temp, array.size() - 2, array.size() - 1);
+            array.setSize(size() - 1);
+            return o;
+        }catch (ArrayIndexOutOfBoundsException exception){
+            return null;
+        }
     }
 
     @Override
     public Object top() {
-        return array.arrayData[0];
+        return array.get(size()-1);
     }
 
     @Override
@@ -68,6 +72,8 @@ public class StackImpl implements Stack {
         for(String arg: args){
             stack.push(arg);
         }
+        System.out.println(stack.toString());
+        stack.pop();
         System.out.println(stack.toString());
     }
 

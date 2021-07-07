@@ -46,9 +46,13 @@ public class QueueImpl implements Queue {
 
     @Override
     public Object dequeue() {
-        Object o = list.getFirst();
-        list.removeFirst();
-        return o;
+        try {
+            Object o = list.getFirst();
+            list.removeFirst();
+            return o;
+        }catch (NullPointerException exception){
+            return null;
+        }
     }
 
     @Override
