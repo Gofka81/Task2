@@ -6,6 +6,8 @@ public class QueueImpl implements Queue {
 
     ListImpl list;
 
+    public QueueImpl(){}
+
     public QueueImpl(ListImpl list) {
         this.list = list;
     }
@@ -68,6 +70,11 @@ public class QueueImpl implements Queue {
             queue.enqueue(arg);
         }
         System.out.println(queue.toString());
+        System.out.println(queue.dequeue());
+        System.out.println(queue.toString());
+        queue.clear();
+        System.out.println(queue.toString());
+
     }
 
 }
