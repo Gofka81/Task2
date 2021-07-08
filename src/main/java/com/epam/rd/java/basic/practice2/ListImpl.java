@@ -162,26 +162,32 @@ public class ListImpl implements List {
         Node safeTemp = null;
         try{
             while (temp != null){
-                if (temp.val.equals(element)) {
-                    if (safeTemp != null) {
-                        safeTemp.next = temp.next;
-                    } else {
-                        head = head.next;
+                if(temp.val != null) {
+                    if (temp.val.equals(element)) {
+                        if (safeTemp != null) {
+                            safeTemp.next = temp.next;
+                        } else {
+                            head = head.next;
+                        }
+                        size--;
+                        return true;
                     }
-                    size--;
-                    return true;
+                    safeTemp = temp;
+                    temp = temp.next;
                 }
-                safeTemp = temp;
-                temp = temp.next;
+                else{
+                    if(temp.val == element){
+                        assert safeTemp != null;
+                        safeTemp.next = temp.next;
+                        size--;
+                        return true;
+                    }
+                    safeTemp = temp;
+                    temp = temp.next;
+                }
             }
             return false;
         }catch(NullPointerException exception) {
-            if(element == temp.val){
-                assert safeTemp != null;
-                safeTemp.next = temp.next;
-                size--;
-                return true;
-            }
             return false;
         }
     }
@@ -209,7 +215,7 @@ public class ListImpl implements List {
             list.addLast(arg);
         }
         System.out.println(list.toString());
-        list.remove(null);
+        list.remove("1");
         System.out.println(list.toString());
         list.removeLast();
         System.out.println(list.toString());
