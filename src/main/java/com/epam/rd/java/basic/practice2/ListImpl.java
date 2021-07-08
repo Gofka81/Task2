@@ -159,13 +159,18 @@ public class ListImpl implements List {
     @Override
     public boolean remove(Object element) {
         Node temp = head;
-        Node safeTemp = head;
+        Node safeTemp = null;
         while (temp != null){
-            if(temp.val == element){
+            if((temp.val == element)&&(temp.val == null)){
                 if(temp == tail){
                     tail =safeTemp;
                 }
-                safeTemp.next = temp.next;
+                if (safeTemp != null) {
+                    safeTemp.next = temp.next;
+                }
+                else{
+                    head = head.next;
+                }
                 size--;
                 return true;
             }
@@ -178,7 +183,11 @@ public class ListImpl implements List {
                 if(temp == tail){
                     tail =safeTemp;
                 }
-                safeTemp.next = temp.next;
+                if (safeTemp != null) {
+                    safeTemp.next = temp.next;
+                }else{
+                    head = head.next;
+                }
                 size--;
                 return true;
             }
@@ -212,7 +221,7 @@ public class ListImpl implements List {
             list.addLast(arg);
         }
         System.out.println(list.toString());
-        list.remove("1");
+        list.remove("Dat");
         System.out.println(list.toString());
         list.remove(null);
         System.out.println(list.toString());
