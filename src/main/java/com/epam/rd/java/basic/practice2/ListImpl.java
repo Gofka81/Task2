@@ -179,22 +179,30 @@ public class ListImpl implements List {
                 temp = temp.next;
                 continue;
             }
-            if(temp.val.equals(element)){
-                if(temp == tail){
-                    tail =safeTemp;
-                }
-                if (safeTemp != null) {
-                    safeTemp.next = temp.next;
-                }else{
-                    head = head.next;
-                }
-                size--;
+
+            if(checkNull(temp,safeTemp, element)){
                 return true;
             }
             safeTemp = temp;
             temp = temp.next;
         }
 
+        return false;
+    }
+
+    public boolean checkNull(Node temp, Node safeTemp, Object element){
+        if(temp.val.equals(element)){
+            if(temp == tail){
+                tail =safeTemp;
+            }
+            if (safeTemp != null) {
+                safeTemp.next = temp.next;
+            }else{
+                head = head.next;
+            }
+            size--;
+            return true;
+        }
         return false;
     }
 
