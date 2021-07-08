@@ -165,9 +165,7 @@ public class ListImpl implements List {
                 if(temp == tail){
                     tail =safeTemp;
                 }
-                if (safeTemp != null) {
-                    safeTemp.next = temp.next;
-                }
+                safeTemp.next = temp.next;
                 size--;
                 return true;
             }
@@ -180,9 +178,7 @@ public class ListImpl implements List {
                 if(temp == tail){
                     tail =safeTemp;
                 }
-                if (safeTemp != null) {
-                    safeTemp.next = temp.next;
-                }
+                safeTemp.next = temp.next;
                 size--;
                 return true;
             }
