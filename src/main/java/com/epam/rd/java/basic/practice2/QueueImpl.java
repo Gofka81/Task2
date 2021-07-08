@@ -47,7 +47,9 @@ public class QueueImpl implements Queue {
             if(index>size()) {
                 throw new NoSuchElementException();
             }
-            pointer = pointer.getNext();
+            if(index>0) {
+                pointer = pointer.getNext();
+            }
             index++;
             return pointer.getVal();
         }
