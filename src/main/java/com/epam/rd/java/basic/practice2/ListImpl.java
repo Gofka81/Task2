@@ -160,36 +160,35 @@ public class ListImpl implements List {
     public boolean remove(Object element) {
         Node temp = head;
         Node safeTemp = null;
-        try{
-            while (temp != null){
-                if(temp.val != null) {
-                    if (temp.val.equals(element)) {
-                        if (safeTemp != null) {
-                            safeTemp.next = temp.next;
-                        } else {
-                            head = head.next;
-                        }
-                        size--;
-                        return true;
-                    }
-                    safeTemp = temp;
-                    temp = temp.next;
+        while (temp != null){
+            if(temp.val == element){
+                assert safeTemp != null;
+                if(temp == tail){
+                    tail =safeTemp;
                 }
-                else{
-                    if(temp.val == element){
-                        assert safeTemp != null;
-                        safeTemp.next = temp.next;
-                        size--;
-                        return true;
-                    }
-                    safeTemp = temp;
-                    temp = temp.next;
-                }
+                safeTemp.next = temp.next;
+                size--;
+                return true;
             }
-            return false;
-        }catch(NullPointerException exception) {
-            return false;
+            if(temp.val == null){
+                safeTemp = temp;
+                temp = temp.next;
+                continue;
+            }
+            if(temp.val.equals(element)){
+                assert safeTemp != null;
+                if(temp == tail){
+                    tail =safeTemp;
+                }
+                safeTemp.next = temp.next;
+                size--;
+                return true;
+            }
+            safeTemp = temp;
+            temp = temp.next;
         }
+
+        return false;
     }
 
     @Override
