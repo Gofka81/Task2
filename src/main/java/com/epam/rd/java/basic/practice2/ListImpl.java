@@ -176,6 +176,12 @@ public class ListImpl implements List {
             }
             return false;
         }catch(NullPointerException exception) {
+            if(element == temp.val){
+                assert safeTemp != null;
+                safeTemp.next = temp.next;
+                size--;
+                return true;
+            }
             return false;
         }
     }
