@@ -159,7 +159,7 @@ public class ListImpl implements List {
     @Override
     public boolean remove(Object element) {
         Node temp = head;
-        Node safeTemp = null;
+        Node safeTemp = head;
         while (temp != null){
             if(temp.val == element){
                 if(temp == tail){
