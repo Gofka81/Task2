@@ -50,7 +50,7 @@ public class QueueImpl implements Queue {
                 index++;
                 return pointer.getVal();
             }
-            catch (NullPointerException exception){
+            catch (NoSuchElementException exception){
                 return null;
             }
         }

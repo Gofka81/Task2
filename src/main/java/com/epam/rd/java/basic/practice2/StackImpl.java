@@ -1,6 +1,7 @@
 package com.epam.rd.java.basic.practice2;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class StackImpl implements Stack {
 
@@ -35,11 +36,15 @@ public class StackImpl implements Stack {
 
         @Override
         public Object next() {
+            try {
                 int prevIndex = index;
                 index--;
                 return array.get(prevIndex);
+            } catch (NoSuchElementException exception) {
+                exception.printStackTrace();
+            }
+            return null;
         }
-
     }
 
     @Override
@@ -62,7 +67,12 @@ public class StackImpl implements Stack {
 
     @Override
     public Object top() {
-        return array.get(size()-1);
+        try {
+            return array.get(size()-1);
+        }
+        catch (ArrayIndexOutOfBoundsException exception){
+            return null;
+        }
     }
 
     @Override
@@ -79,6 +89,7 @@ public class StackImpl implements Stack {
         System.out.println(stack.toString());
         stack.pop();
         System.out.println(stack.toString());
+        stack.clear();
         stack.clear();
         System.out.println(stack.toString());
 

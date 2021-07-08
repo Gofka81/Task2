@@ -108,9 +108,12 @@ public class ArrayImpl implements Array {
 	@Override
     public Object get(int index) {
         try{
+            if(arrayData[index] == null) {
+                return null;
+            }
             return arrayData[index];
         }
-        catch (NoSuchElementException exception){
+        catch (ArrayIndexOutOfBoundsException exception){
             return null;
         }
     }
