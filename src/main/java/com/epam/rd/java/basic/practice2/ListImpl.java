@@ -35,7 +35,6 @@ public class ListImpl implements List {
     @Override
     public void clear() {
         head = null;
-        tail = null;
         size = 0;
     }
 
@@ -117,6 +116,7 @@ public class ListImpl implements List {
         while(temp.next != tail){
             temp = temp.next;
         }
+        tail = temp;
         temp.next = null;
         size--;
     }
@@ -219,5 +219,6 @@ public class ListImpl implements List {
         System.out.println(list.toString());
         list.removeLast();
         System.out.println(list.toString());
+        System.out.println(list.getLast());
     }
 }
