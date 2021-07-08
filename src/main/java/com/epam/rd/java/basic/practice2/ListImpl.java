@@ -162,11 +162,12 @@ public class ListImpl implements List {
         Node safeTemp = null;
         while (temp != null){
             if(temp.val == element){
-                assert safeTemp != null;
                 if(temp == tail){
                     tail =safeTemp;
                 }
-                safeTemp.next = temp.next;
+                if (safeTemp != null) {
+                    safeTemp.next = temp.next;
+                }
                 size--;
                 return true;
             }
@@ -176,11 +177,12 @@ public class ListImpl implements List {
                 continue;
             }
             if(temp.val.equals(element)){
-                assert safeTemp != null;
                 if(temp == tail){
                     tail =safeTemp;
                 }
-                safeTemp.next = temp.next;
+                if (safeTemp != null) {
+                    safeTemp.next = temp.next;
+                }
                 size--;
                 return true;
             }
@@ -216,7 +218,9 @@ public class ListImpl implements List {
         System.out.println(list.toString());
         list.remove("1");
         System.out.println(list.toString());
-        list.removeLast();
+        list.remove(null);
+        System.out.println(list.toString());
+        list.remove(null);
         System.out.println(list.toString());
         System.out.println(list.getLast());
     }
