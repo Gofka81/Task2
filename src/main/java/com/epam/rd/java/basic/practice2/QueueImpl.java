@@ -44,14 +44,11 @@ public class QueueImpl implements Queue {
         @Override
         public Object next() {
             try {
-                if(index>=size()){
-                    throw new NoSuchElementException();
-                }
                 if(index>0) {
                     pointer = pointer.getNext();
                 }
                 index++;
-                return pointer.getNext();
+                return pointer.getVal();
             }
             catch (NullPointerException exception){
                 return null;
@@ -95,8 +92,9 @@ public class QueueImpl implements Queue {
         System.out.println(queue.toString());
         System.out.println(queue.dequeue());
         System.out.println(queue.toString());
-        queue.clear();
-        System.out.println(queue.toString());
+        for (Object o: queue){
+            System.out.println(o);
+        }
 
     }
 

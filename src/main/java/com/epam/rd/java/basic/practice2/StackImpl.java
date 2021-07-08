@@ -13,7 +13,7 @@ public class StackImpl implements Stack {
 
     @Override
     public void clear() {
-        array.clear();
+        array = new ArrayImpl();
     }
 
     @Override
@@ -36,15 +36,9 @@ public class StackImpl implements Stack {
 
         @Override
         public Object next() {
-            try {
                 int prevIndex = index;
                 index--;
                 return array.get(prevIndex);
-            }
-            catch (NoSuchElementException exception) {
-                exception.printStackTrace();
-            }
-            return  null;
         }
 
     }
@@ -87,6 +81,8 @@ public class StackImpl implements Stack {
         stack.pop();
         System.out.println(stack.toString());
         stack.clear();
+        System.out.println(stack.toString());
+
     }
 
 }

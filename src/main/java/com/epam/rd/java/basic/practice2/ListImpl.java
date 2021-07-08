@@ -17,6 +17,10 @@ public class ListImpl implements List {
         public Node getNext() {
             return next;
         }
+
+        public Object getVal() {
+            return val;
+        }
     }
 
     private Node head;
