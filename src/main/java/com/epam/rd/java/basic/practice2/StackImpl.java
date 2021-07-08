@@ -36,14 +36,13 @@ public class StackImpl implements Stack {
 
         @Override
         public Object next() {
-            try {
-                int prevIndex = index;
-                index--;
-                return array.get(prevIndex);
-            } catch (NoSuchElementException exception) {
-                exception.printStackTrace();
+            if(index<0 && index> size()) {
+                throw new NoSuchElementException();
             }
-            return null;
+            int prevIndex = index;
+            index--;
+            return array.get(prevIndex);
+
         }
     }
 

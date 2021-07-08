@@ -43,19 +43,18 @@ public class QueueImpl implements Queue {
 
         @Override
         public Object next() {
-            try {
-                if(index>0) {
-                    pointer = pointer.getNext();
-                }
-                index++;
-                return pointer.getVal();
+
+            if(index>size()) {
+                throw new NoSuchElementException();
             }
-            catch (NoSuchElementException exception){
-                return null;
-            }
+            pointer = pointer.getNext();
+            index++;
+            return pointer.getVal();
         }
 
     }
+
+
 
     @Override
     public void enqueue(Object element) {
